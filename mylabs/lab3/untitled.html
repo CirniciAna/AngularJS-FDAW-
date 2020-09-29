@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <title>Заявка</title>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+  <div class="form">
+    <form class="form">
+      <h2>Заявление</h2>
+            <label>Имя</label><br>
+      <input class="margin" type="text" ng-model="firstName"><br>
+            <br><label>Фамилия</label><br>
+      <input class="margin" type="text" ng-model="lastName"><br>
+            <br><label>Дата</label><br>
+      <input class="margin" type="date" ng-model="birthDay">
+      <h2>Факультет</h2>
+      <p>
+        <input type="radio" ng-model="faculty" value="Chimie">Химия
+      </p>
+      <p>
+        <input type="radio" ng-model="faculty" value="Informatica">Информатика
+      </p>
+      <p>
+        <input type="radio" ng-model="faculty" value="Matematica">Математика
+      </p>
+      <div ng-switch="faculty">
+          <div ng-switch-when="Chimie">
+             <select ng-model="specialty">
+               <option></option>
+               <option>Обычная химия</option>
+               <option>Химия органика</option>
+             </select>
+          </div>
+          <div ng-switch-when="Informatica">
+             <select ng-model="specialty">
+               <option></option>
+               <option>Обычная информатика</option>
+               <option>Прикладная информатика</option>
+             </select>
+          </div>
+          <div ng-switch-when="Matematica">
+             <select ng-model="specialty">
+               <option></option>
+               <option>Обычная математика</option>
+               <option>Прикладная информатика</option>
+             </select>
+          </div>
+      </div>
+      <h2>Ожидаемая зарплата</h2>
+            <label>Зарплата</label><br>
+      <input class="margin" type="number" ng-model="salary">
+      <div ng-if="salary < 3000" ng-model="btn">
+        <p>Вы себя недооцениваете!</p>
+      </div>
+      <div ng-if="salary > 10000">
+        <p>Вы себя переоцениваете</p>
+      </div>
+      <br>
+      <button ng-disabled="!firstName || !lastName || !birthDay || !faculty || !salary" ng-click="showing=true" class="margin">Отправить</button>
+      <div ng-show="showing">
+        <p>Имя {{ firstName }}</p>
+        <p>Фамилия {{ lastName }}</p>
+        <p>Дата рождения {{ birthDay }}</p>
+        <p>Факультет {{ faculty }}</p>
+        <p>Зарплата {{ salary }}</p>
+      </div>
+    </form>
+  </div>
+  <script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+      $scope.showing = false;
+    });
+  </script>
+</body>
+</html>
